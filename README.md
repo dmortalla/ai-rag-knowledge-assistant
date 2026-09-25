@@ -40,7 +40,13 @@ OpenAI Chat Model
 Grounded Answer + Sources
 ```
 
-Users interact with the system through a Streamlit frontend backed by a FastAPI API.
+Users interact with the system through a Streamlit frontend backed by a FastAPI API./
+
+## 🖥️ Application Demo
+
+The Streamlit interface exposes the complete RAG workflow, including system status, grounded answer generation, retrieval evidence, source attribution, and a heuristic grounding signal.
+
+![AI RAG Knowledge Assistant interface](assets/rag-assistant-demo.png)
 
 ## ✨ Key Features
 
@@ -234,12 +240,11 @@ ai-rag-knowledge-assistant/
 |       `-- store_manager.py
 |
 |-- assets/
+|   `-- rag-assistant-demo.png
 |
 |-- data/
 |   |-- raw/
 |   |   `-- customer_retention.txt
-|   |
-|   |-- processed/
 |   |
 |   `-- vector_store/        # Generated locally and ignored by Git
 |
