@@ -29,16 +29,12 @@ class DummyVectorStore:
         """
         Return deterministic structured retrieval results.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Input query.
-        k : int, default=4
+        k:
             Number of results.
-
-        Returns
-        -------
-        list of dict
+        Returns:
             Mock retrieved context records.
         """
         return [
@@ -62,9 +58,8 @@ class DummyResponse:
         """
         Initialize the dummy response.
 
-        Parameters
-        ----------
-        content : str
+        Args:
+        content:
             Response text.
         """
         self.content = content
@@ -79,14 +74,10 @@ class DummyLLM:
         """
         Return a deterministic response.
 
-        Parameters
-        ----------
-        prompt : str
+        Args:
+        prompt:
             Input prompt.
-
-        Returns
-        -------
-        DummyResponse
+        Returns:
             Mock response object.
         """
         return DummyResponse(
@@ -98,9 +89,6 @@ def test_run_returns_expected_structure():
     """
     Test that the RAG pipeline returns query, context, sources, and answer.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(
         vector_store=DummyVectorStore(),
@@ -147,9 +135,6 @@ def test_run_raises_for_empty_query():
     """
     Test that an empty query raises ValueError.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(
         vector_store=DummyVectorStore(),

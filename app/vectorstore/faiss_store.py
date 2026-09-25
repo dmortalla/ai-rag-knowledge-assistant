@@ -20,11 +20,10 @@ class FAISSStore(BaseVectorStore):
     """
     Wrapper around a FAISS vector store.
 
-    Parameters
-    ----------
-    embeddings : object
+    Args:
+    embeddings:
         Embedding provider implementing compatible embedding methods.
-    index_name : str, default="faiss_index"
+    index_name:
         Directory name used to persist the FAISS index.
     """
 
@@ -36,16 +35,13 @@ class FAISSStore(BaseVectorStore):
         """
         Initialize the FAISS store wrapper.
 
-        Parameters
-        ----------
-        embeddings : object
+        Args:
+        embeddings:
             Embedding provider used by the FAISS index.
-        index_name : str, default="faiss_index"
+        index_name:
             Directory name used to persist the FAISS index.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the index name is blank.
         """
         if not index_name or not index_name.strip():
@@ -60,9 +56,7 @@ class FAISSStore(BaseVectorStore):
         """
         Indicate whether the internal FAISS store exists.
 
-        Returns
-        -------
-        bool
+        Returns:
             True if the store has been created or loaded, otherwise False.
         """
         return self._store is not None
@@ -75,20 +69,13 @@ class FAISSStore(BaseVectorStore):
         """
         Create a FAISS store from input texts.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Text chunks to embed and index.
-        metadatas : list of dict, optional
+        metadatas:
             Metadata dictionaries aligned one-to-one with texts.
-
-        Returns
-        -------
-        None
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the text list is empty or metadata length does not match.
         """
         if not texts:
@@ -111,21 +98,15 @@ class FAISSStore(BaseVectorStore):
         """
         Perform similarity search over the FAISS index.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Query string used for retrieval.
-        k : int, default=4
+        k:
             Number of top matches to return.
-
-        Returns
-        -------
-        list of dict
+        Returns:
             Retrieved chunk records with content and metadata.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the query is empty, k is invalid, or the store is not initialized.
         """
         if not query or not query.strip():
@@ -151,14 +132,10 @@ class FAISSStore(BaseVectorStore):
         """
         Save the FAISS store locally.
 
-        Returns
-        -------
-        Path
+        Returns:
             Path to the saved FAISS directory.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the store has not been initialized.
         """
         if self._store is None:
@@ -174,13 +151,8 @@ class FAISSStore(BaseVectorStore):
         """
         Load a FAISS store from local disk.
 
-        Returns
-        -------
-        None
-
-        Raises
-        ------
-        FileNotFoundError
+        Raises:
+        FileNotFoundError:
             If the requested save directory does not exist.
         """
         load_path = VECTOR_STORE_DIR / self.index_name

@@ -20,9 +20,6 @@ def main() -> None:
     """
     Load raw documents, chunk them, and print a basic ingestion summary.
 
-    Returns
-    -------
-    None
     """
     documents = load_all_text_documents()
 

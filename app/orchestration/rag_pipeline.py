@@ -18,11 +18,10 @@ class RAGPipeline:
     """
     Orchestrate retrieval-augmented generation.
 
-    Parameters
-    ----------
-    retriever : Retriever
+    Args:
+    retriever:
         Retriever instance used to fetch relevant context chunks.
-    answer_generator : AnswerGenerator
+    answer_generator:
         Answer generator instance used to produce the final answer.
     """
 
@@ -34,11 +33,10 @@ class RAGPipeline:
         """
         Initialize the RAG pipeline.
 
-        Parameters
-        ----------
-        retriever : Retriever
+        Args:
+        retriever:
             Retriever instance.
-        answer_generator : AnswerGenerator
+        answer_generator:
             Answer generator instance.
         """
         self.retriever = retriever
@@ -48,19 +46,13 @@ class RAGPipeline:
         """
         Run the full RAG pipeline for a query.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             User query.
-
-        Returns
-        -------
-        dict
+        Returns:
             Dictionary containing the query, retrieved sources, and answer.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the query is empty.
         """
         if not query or query.strip() == "":

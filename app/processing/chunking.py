@@ -16,19 +16,13 @@ def chunk_text(text: str) -> List[str]:
     """
     Split input text into overlapping chunks.
 
-    Parameters
-    ----------
-    text : str
+    Args:
+    text:
         Raw input text.
-
-    Returns
-    -------
-    List[str]
+    Returns:
         List of text chunks.
-
-    Raises
-    ------
-    ValueError
+    Raises:
+    ValueError:
         If input text is empty.
     """
     settings = get_settings()

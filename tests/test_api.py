@@ -22,14 +22,10 @@ class DummyPipeline:
         """
         Return a deterministic mock RAG response.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             User query.
-
-        Returns
-        -------
-        dict
+        Returns:
             Mock pipeline result.
         """
         return {
@@ -61,9 +57,6 @@ def test_health_endpoint():
     """
     Test that the health endpoint returns status ok.
 
-    Returns
-    -------
-    None
     """
     response = client.get("/health")
 
@@ -75,14 +68,9 @@ def test_query_endpoint(monkeypatch):
     """
     Test that the query endpoint returns a structured response.
 
-    Parameters
-    ----------
-    monkeypatch : pytest.MonkeyPatch
+    Args:
+    monkeypatch:
         Fixture used to replace the pipeline builder.
-
-    Returns
-    -------
-    None
     """
     monkeypatch.setattr(
         routes,

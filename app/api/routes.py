@@ -24,9 +24,7 @@ def build_pipeline() -> RAGPipeline:
     """
     Build the current RAG pipeline instance for the API.
 
-    Returns
-    -------
-    RAGPipeline
+    Returns:
         Application pipeline used by the API route.
     """
     vector_store = get_vector_store()
@@ -51,9 +49,7 @@ def health_check() -> dict[str, str]:
     """
     Return a simple API health status.
 
-    Returns
-    -------
-    dict of str to str
+    Returns:
         Health status payload.
     """
     return {"status": "ok"}
@@ -64,14 +60,10 @@ def query_rag(request: QueryRequest) -> QueryResponse:
     """
     Run the RAG pipeline for a user query.
 
-    Parameters
-    ----------
-    request : QueryRequest
+    Args:
+    request:
         Incoming query request body.
-
-    Returns
-    -------
-    QueryResponse
+    Returns:
         Answer and supporting context returned by the pipeline.
     """
     pipeline = build_pipeline()

@@ -23,14 +23,10 @@ class DummyEmbedder:
         """
         Generate dummy embeddings for multiple texts.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Input text list.
-
-        Returns
-        -------
-        list of list of float
+        Returns:
             Fixed-size dummy vectors.
         """
         return [[1.0] * 5 for _ in texts]
@@ -39,14 +35,10 @@ class DummyEmbedder:
         """
         Generate a dummy embedding for a query.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Input query string.
-
-        Returns
-        -------
-        list of float
+        Returns:
             Fixed-size dummy vector.
         """
         return [1.0] * 5
@@ -56,9 +48,6 @@ def test_embed_texts():
     """
     Test embedding generation for multiple texts.
 
-    Returns
-    -------
-    None
     """
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
@@ -73,9 +62,6 @@ def test_embed_query():
     """
     Test embedding generation for a single query.
 
-    Returns
-    -------
-    None
     """
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
@@ -89,9 +75,6 @@ def test_empty_texts():
     """
     Test that embedding generation raises an error for empty input.
 
-    Returns
-    -------
-    None
     """
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
@@ -103,9 +86,6 @@ def test_empty_query():
     """
     Test that embedding generation raises an error for empty query.
 
-    Returns
-    -------
-    None
     """
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 

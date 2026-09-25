@@ -23,9 +23,7 @@ class BaseVectorStore(ABC):
         """
         Indicate whether the vector store is initialized.
 
-        Returns
-        -------
-        bool
+        Returns:
             True if initialized, otherwise False.
         """
         raise NotImplementedError
@@ -39,16 +37,11 @@ class BaseVectorStore(ABC):
         """
         Add texts and optional metadata to the vector store.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Text chunks to index.
-        metadatas : list of dict, optional
+        metadatas:
             Metadata aligned one-to-one with texts.
-
-        Returns
-        -------
-        None
         """
         raise NotImplementedError
 
@@ -61,16 +54,12 @@ class BaseVectorStore(ABC):
         """
         Search for the most relevant chunks.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Query string.
-        k : int, default=4
+        k:
             Number of results to return.
-
-        Returns
-        -------
-        list of dict
+        Returns:
             Retrieved chunk records.
         """
         raise NotImplementedError
@@ -80,9 +69,7 @@ class BaseVectorStore(ABC):
         """
         Save the vector store using backend-specific persistence.
 
-        Returns
-        -------
-        Path
+        Returns:
             Persistence location used by the backend.
         """
         raise NotImplementedError
@@ -92,8 +79,5 @@ class BaseVectorStore(ABC):
         """
         Load the vector store using backend-specific persistence.
 
-        Returns
-        -------
-        None
         """
         raise NotImplementedError

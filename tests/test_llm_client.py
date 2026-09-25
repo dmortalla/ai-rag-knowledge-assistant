@@ -21,9 +21,8 @@ class DummyResponse:
         """
         Initialize the dummy response.
 
-        Parameters
-        ----------
-        content : str
+        Args:
+        content:
             Response content text.
         """
         self.content = content
@@ -38,14 +37,10 @@ class DummyLLM:
         """
         Return a deterministic dummy response.
 
-        Parameters
-        ----------
-        prompt : str
+        Args:
+        prompt:
             Input prompt.
-
-        Returns
-        -------
-        DummyResponse
+        Returns:
             Mock response object.
         """
         return DummyResponse(content=f"Generated answer for: {prompt[:20]}")
@@ -55,9 +50,6 @@ def test_generate_returns_response_content():
     """
     Test that the LLM client returns response content.
 
-    Returns
-    -------
-    None
     """
     client = LLMClient(llm_backend=DummyLLM())
 
@@ -71,9 +63,6 @@ def test_generate_raises_for_empty_prompt():
     """
     Test that an empty prompt raises ValueError.
 
-    Returns
-    -------
-    None
     """
     client = LLMClient(llm_backend=DummyLLM())
 

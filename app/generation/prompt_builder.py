@@ -15,9 +15,8 @@ class PromptBuilder:
     """
     Build grounded prompts for retrieval-augmented generation.
 
-    Parameters
-    ----------
-    system_instruction : str, optional
+    Args:
+    system_instruction:
         Instruction prepended to the final prompt.
     """
 
@@ -25,9 +24,8 @@ class PromptBuilder:
         """
         Initialize the prompt builder.
 
-        Parameters
-        ----------
-        system_instruction : str, optional
+        Args:
+        system_instruction:
             Custom instruction for the LLM.
         """
         self.system_instruction = (
@@ -49,21 +47,15 @@ class PromptBuilder:
         """
         Build a final LLM prompt from a query and retrieved context.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             User question.
-        context_chunks : list of dict
+        context_chunks:
             Retrieved chunk records.
-
-        Returns
-        -------
-        str
+        Returns:
             Final prompt string.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the query is empty, the context list is empty, or a context
             chunk contains blank content.
         """
@@ -89,19 +81,13 @@ class PromptBuilder:
         """
         Format retrieved context chunks into a numbered block.
 
-        Parameters
-        ----------
-        context_chunks : list of dict
+        Args:
+        context_chunks:
             Retrieved chunk records.
-
-        Returns
-        -------
-        str
+        Returns:
             Numbered context block.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If a retrieved chunk contains blank content.
         """
         formatted_blocks = []

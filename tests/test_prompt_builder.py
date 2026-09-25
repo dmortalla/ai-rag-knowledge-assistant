@@ -16,9 +16,6 @@ def test_build_creates_prompt_with_query_and_context():
     """
     Test that the built prompt includes the query and structured context.
 
-    Returns
-    -------
-    None
     """
     builder = PromptBuilder()
 
@@ -55,9 +52,6 @@ def test_build_raises_for_empty_query():
     """
     Test that an empty query raises ValueError.
 
-    Returns
-    -------
-    None
     """
     builder = PromptBuilder()
 
@@ -79,9 +73,6 @@ def test_build_raises_for_empty_context_list():
     """
     Test that an empty context list raises ValueError.
 
-    Returns
-    -------
-    None
     """
     builder = PromptBuilder()
 
@@ -93,9 +84,6 @@ def test_build_raises_for_blank_context_chunk():
     """
     Test that blank structured context content raises ValueError.
 
-    Returns
-    -------
-    None
     """
     builder = PromptBuilder()
 
@@ -127,9 +115,6 @@ def test_custom_system_instruction_is_used():
     """
     Test that a custom system instruction appears in the final prompt.
 
-    Returns
-    -------
-    None
     """
     builder = PromptBuilder(
         system_instruction="Answer briefly using only the supplied context."

@@ -17,11 +17,10 @@ class Retriever:
     """
     Application-level retriever for vector search.
 
-    Parameters
-    ----------
-    vector_store : object
+    Args:
+    vector_store:
         Vector store instance implementing a ``similarity_search`` method.
-    default_k : int, optional
+    default_k:
         Default number of results to retrieve.
     """
 
@@ -29,11 +28,10 @@ class Retriever:
         """
         Initialize the retriever.
 
-        Parameters
-        ----------
-        vector_store : object
+        Args:
+        vector_store:
             Vector store instance.
-        default_k : int, optional
+        default_k:
             Default number of retrieved results.
         """
         settings = get_settings()
@@ -47,21 +45,15 @@ class Retriever:
         """
         Retrieve the most relevant text chunks for a query.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Input query string.
-        k : int, optional
+        k:
             Number of top results to retrieve.
-
-        Returns
-        -------
-        list of dict
+        Returns:
             Retrieved chunk records with content and metadata.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the query is empty or if ``k`` is invalid.
         """
         if not query or query.strip() == "":

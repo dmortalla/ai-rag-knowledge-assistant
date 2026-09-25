@@ -17,11 +17,10 @@ class AnswerGenerator:
     """
     Generate grounded answers from a query and retrieved context.
 
-    Parameters
-    ----------
-    prompt_builder : PromptBuilder
+    Args:
+    prompt_builder:
         Prompt builder instance used to construct the final prompt.
-    llm_client : LLMClient
+    llm_client:
         LLM client instance used to generate the answer.
     """
 
@@ -33,11 +32,10 @@ class AnswerGenerator:
         """
         Initialize the answer generator.
 
-        Parameters
-        ----------
-        prompt_builder : PromptBuilder
+        Args:
+        prompt_builder:
             Prompt builder instance.
-        llm_client : LLMClient
+        llm_client:
             LLM client instance.
         """
         self.prompt_builder = prompt_builder
@@ -47,16 +45,12 @@ class AnswerGenerator:
         """
         Generate an answer from a query and retrieved context.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             User question.
-        context_chunks : list of dict
+        context_chunks:
             Retrieved chunk records.
-
-        Returns
-        -------
-        str
+        Returns:
             Final generated answer.
         """
         prompt = self.prompt_builder.build(

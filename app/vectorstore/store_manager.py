@@ -14,21 +14,15 @@ def get_vector_store(embeddings: object | None = None) -> BaseVectorStore:
     """
     Create the configured vector store backend.
 
-    Parameters
-    ----------
-    embeddings : object, optional
+    Args:
+    embeddings:
         Embedding backend. If omitted, an OpenAI embedder is created.
-
-    Returns
-    -------
-    BaseVectorStore
+    Returns:
         Configured vector store instance.
-
-    Raises
-    ------
-    NotImplementedError
+    Raises:
+    NotImplementedError:
         If Pinecone is selected before its backend is implemented.
-    ValueError
+    ValueError:
         If the configured backend is unsupported.
     """
     settings = get_settings()

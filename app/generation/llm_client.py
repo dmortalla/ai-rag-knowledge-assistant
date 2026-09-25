@@ -19,9 +19,8 @@ class LLMClient:
     """
     Wrapper around an LLM backend.
 
-    Parameters
-    ----------
-    llm_backend : object, optional
+    Args:
+    llm_backend:
         Prebuilt LLM backend used primarily for testing. If not provided,
         the client will initialize an OpenAI SDK client lazily.
     """
@@ -30,9 +29,8 @@ class LLMClient:
         """
         Initialize the LLM client.
 
-        Parameters
-        ----------
-        llm_backend : object, optional
+        Args:
+        llm_backend:
             Optional injected backend for testing.
         """
         settings = get_settings()
@@ -46,9 +44,7 @@ class LLMClient:
         """
         Return the OpenAI client, creating it if necessary.
 
-        Returns
-        -------
-        OpenAI
+        Returns:
             OpenAI client instance.
         """
         if self._client is None:
@@ -60,19 +56,13 @@ class LLMClient:
         """
         Generate a response from a prompt.
 
-        Parameters
-        ----------
-        prompt : str
+        Args:
+        prompt:
             Final prompt string.
-
-        Returns
-        -------
-        str
+        Returns:
             Model-generated response text.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If the prompt is empty.
         """
         if not prompt or prompt.strip() == "":

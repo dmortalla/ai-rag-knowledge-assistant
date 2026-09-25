@@ -20,9 +20,6 @@ def main() -> None:
     """
     Build and save a vector index from raw text documents.
 
-    Returns
-    -------
-    None
     """
     documents = load_all_text_documents()
 

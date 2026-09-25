@@ -17,21 +17,15 @@ def load_text_file(file_path: Path) -> str:
     """
     Load a single UTF-8 text file.
 
-    Parameters
-    ----------
-    file_path : Path
+    Args:
+    file_path:
         Path to the text file.
-
-    Returns
-    -------
-    str
+    Returns:
         File contents as a string.
-
-    Raises
-    ------
-    FileNotFoundError
+    Raises:
+    FileNotFoundError:
         If the file does not exist.
-    ValueError
+    ValueError:
         If the file is empty.
     """
     if not file_path.exists():
@@ -49,21 +43,15 @@ def load_all_text_documents(raw_data_dir: Path = RAW_DATA_DIR) -> List[Dict[str,
     """
     Load all plain-text documents from the raw data directory.
 
-    Parameters
-    ----------
-    raw_data_dir : Path, default=RAW_DATA_DIR
+    Args:
+    raw_data_dir:
         Directory containing raw text files.
-
-    Returns
-    -------
-    list of dict
+    Returns:
         Loaded documents with text and source filename.
-
-    Raises
-    ------
-    FileNotFoundError
+    Raises:
+    FileNotFoundError:
         If the raw data directory does not exist.
-    ValueError
+    ValueError:
         If no .txt files are found.
     """
     if not raw_data_dir.exists():

@@ -18,14 +18,10 @@ class DummyEmbeddings:
         """
         Generate deterministic embeddings for text documents.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Input text list.
-
-        Returns
-        -------
-        list of list of float
+        Returns:
             Deterministic embedding vectors.
         """
         return [
@@ -37,14 +33,10 @@ class DummyEmbeddings:
         """
         Generate a deterministic embedding for a query.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Query string.
-
-        Returns
-        -------
-        list of float
+        Returns:
             Deterministic query embedding.
         """
         return [
@@ -57,14 +49,10 @@ class DummyEmbeddings:
         """
         Make the dummy embedding provider callable.
 
-        Parameters
-        ----------
-        text : str
+        Args:
+        text:
             Query text.
-
-        Returns
-        -------
-        list of float
+        Returns:
             Deterministic query embedding.
         """
         return self.embed_query(text)

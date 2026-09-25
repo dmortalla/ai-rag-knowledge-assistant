@@ -21,16 +21,12 @@ class DummyVectorStore:
         """
         Return deterministic mock retrieval results.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Input query string.
-        k : int, default=4
+        k:
             Number of results to return.
-
-        Returns
-        -------
-        list of str
+        Returns:
             Mock retrieved results.
         """
         return [f"{query}_result_{index}" for index in range(k)]
@@ -40,9 +36,6 @@ def test_retrieve_uses_default_k():
     """
     Test that retrieval uses the retriever's default top-k value.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
@@ -56,9 +49,6 @@ def test_retrieve_respects_explicit_k():
     """
     Test that retrieval respects an explicit k override.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
@@ -72,9 +62,6 @@ def test_retrieve_raises_for_empty_query():
     """
     Test that an empty query raises ValueError.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
@@ -86,9 +73,6 @@ def test_retrieve_raises_for_invalid_k():
     """
     Test that a non-positive k raises ValueError.
 
-    Returns
-    -------
-    None
     """
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
@@ -100,9 +84,6 @@ def test_init_raises_for_invalid_default_k():
     """
     Test that an invalid default_k fails at initialization.
 
-    Returns
-    -------
-    None
     """
     with pytest.raises(AssertionError):
         Retriever(vector_store=DummyVectorStore(), default_k=0)

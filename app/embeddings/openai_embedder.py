@@ -18,9 +18,8 @@ class OpenAIEmbedder:
     """
     Handle embedding generation using the OpenAI Python SDK.
 
-    Parameters
-    ----------
-    embedding_backend : object, optional
+    Args:
+    embedding_backend:
         Prebuilt embedding backend used primarily for testing. If provided,
         it must implement ``embed_documents`` and ``embed_query``.
     """
@@ -29,9 +28,8 @@ class OpenAIEmbedder:
         """
         Initialize the embedder.
 
-        Parameters
-        ----------
-        embedding_backend : object, optional
+        Args:
+        embedding_backend:
             Optional backend for dependency injection in tests.
         """
         settings = get_settings()
@@ -45,9 +43,7 @@ class OpenAIEmbedder:
         """
         Return the OpenAI client, creating it if necessary.
 
-        Returns
-        -------
-        OpenAI
+        Returns:
             OpenAI client instance.
         """
         if self._client is None:
@@ -59,9 +55,7 @@ class OpenAIEmbedder:
         """
         Return the embedding backend for FAISS compatibility.
 
-        Returns
-        -------
-        object
+        Returns:
             Either the injected backend or this embedder instance.
         """
         return self._embedder if self._embedder is not None else self
@@ -70,14 +64,10 @@ class OpenAIEmbedder:
         """
         Generate embeddings for multiple texts.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Input text list.
-
-        Returns
-        -------
-        list of list of float
+        Returns:
             Embedding vectors.
         """
         return self.embed_texts(texts)
@@ -86,19 +76,13 @@ class OpenAIEmbedder:
         """
         Generate embeddings for a list of texts.
 
-        Parameters
-        ----------
-        texts : list of str
+        Args:
+        texts:
             Input text list.
-
-        Returns
-        -------
-        list of list of float
+        Returns:
             Embedding vectors.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If input is empty.
         """
         if not texts:
@@ -118,19 +102,13 @@ class OpenAIEmbedder:
         """
         Generate an embedding for a single query.
 
-        Parameters
-        ----------
-        query : str
+        Args:
+        query:
             Input query string.
-
-        Returns
-        -------
-        list of float
+        Returns:
             Embedding vector.
-
-        Raises
-        ------
-        ValueError
+        Raises:
+        ValueError:
             If query is empty.
         """
         if not query or query.strip() == "":
@@ -150,14 +128,10 @@ class OpenAIEmbedder:
         """
         Make the embedder callable for FAISS compatibility.
 
-        Parameters
-        ----------
-        text : str
+        Args:
+        text:
             Query text.
-
-        Returns
-        -------
-        list of float
+        Returns:
             Query embedding vector.
         """
         return self.embed_query(text)
