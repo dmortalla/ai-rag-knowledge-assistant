@@ -7,7 +7,21 @@ the LLM focused on the provided knowledge base.
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import List, TypedDict
+
+
+class ChunkMetadata(TypedDict, total=False):
+    """Metadata associated with a retrieved context chunk."""
+
+    source: str
+    chunk_id: int
+
+
+class ContextChunk(TypedDict):
+    """Retrieved context chunk used for prompt construction."""
+
+    content: str
+    metadata: ChunkMetadata
 
 
 class PromptBuilder:
@@ -37,7 +51,7 @@ class PromptBuilder:
     def build(
         self,
         query: str,
-        context_chunks: List[Dict[str, object]],
+        context_chunks: List[ContextChunk],
     ) -> str:
         """Build a final LLM prompt from a query and retrieved context.
 
@@ -69,7 +83,7 @@ class PromptBuilder:
 
     def _format_context(
         self,
-        context_chunks: List[Dict[str, object]],
+        context_chunks: List[ContextChunk],
     ) -> str:
         """Format retrieved context chunks into a numbered block.
 
@@ -85,12 +99,12 @@ class PromptBuilder:
         formatted_blocks = []
 
         for index, chunk_record in enumerate(context_chunks, start=1):
-            content = str(chunk_record["content"])
+            content = chunk_record["content"]
 
             if not content.strip():
                 raise ValueError("Context chunk content cannot be blank.")
 
-            metadata = chunk_record.get("metadata", {})
+            metadata = chunk_record["metadata"]
             source = metadata.get("source", "unknown_source")
             chunk_id = metadata.get("chunk_id", index)
 
