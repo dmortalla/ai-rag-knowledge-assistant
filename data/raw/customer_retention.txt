@@ -1,0 +1,7 @@
+Customer churn refers to the percentage or number of customers who stop using a product or service during a given time period.
+
+Customer retention refers to the ability of a business to keep its existing customers over time.
+
+Churn is an important business metric because acquiring new customers is often more expensive than retaining existing ones.
+
+Companies commonly analyze churn to identify why customers leave and to improve retention strategies.
