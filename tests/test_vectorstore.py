@@ -1,6 +1,4 @@
-"""
-Tests for the FAISS vector store abstraction.
-"""
+"""Tests for the FAISS vector store abstraction."""
 
 from __future__ import annotations
 
@@ -10,17 +8,14 @@ from app.vectorstore.faiss_store import FAISSStore
 
 
 class DummyEmbeddings:
-    """
-    Provide deterministic embeddings for vector store tests.
-    """
+    """Provide deterministic embeddings for vector store tests."""
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        """
-        Generate deterministic embeddings for text documents.
+        """Generate deterministic embeddings for text documents.
 
         Args:
-        texts:
-            Input text list.
+            texts: Input text list.
+
         Returns:
             Deterministic embedding vectors.
         """
@@ -30,12 +25,11 @@ class DummyEmbeddings:
         ]
 
     def embed_query(self, query: str) -> list[float]:
-        """
-        Generate a deterministic embedding for a query.
+        """Generate a deterministic embedding for a query.
 
         Args:
-        query:
-            Query string.
+            query: Query string.
+
         Returns:
             Deterministic query embedding.
         """
@@ -46,12 +40,11 @@ class DummyEmbeddings:
         ]
 
     def __call__(self, text: str) -> list[float]:
-        """
-        Make the dummy embedding provider callable.
+        """Make the dummy embedding provider callable.
 
         Args:
-        text:
-            Query text.
+            text: Query text.
+
         Returns:
             Deterministic query embedding.
         """
@@ -59,18 +52,14 @@ class DummyEmbeddings:
 
 
 def test_store_starts_uninitialized() -> None:
-    """
-    Verify a new FAISS store has no index.
-    """
+    """Verify a new FAISS store has no index."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     assert store.is_initialized is False
 
 
 def test_add_texts_initializes_store() -> None:
-    """
-    Verify adding valid texts creates the FAISS index.
-    """
+    """Verify adding valid texts creates the FAISS index."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     store.add_texts(
@@ -85,9 +74,7 @@ def test_add_texts_initializes_store() -> None:
 
 
 def test_add_texts_rejects_empty_input() -> None:
-    """
-    Verify empty text input is rejected.
-    """
+    """Verify empty text input is rejected."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     with pytest.raises(ValueError, match="Input texts cannot be empty"):
@@ -95,9 +82,7 @@ def test_add_texts_rejects_empty_input() -> None:
 
 
 def test_add_texts_rejects_metadata_length_mismatch() -> None:
-    """
-    Verify metadata must align one-to-one with input texts.
-    """
+    """Verify metadata must align one-to-one with input texts."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     with pytest.raises(ValueError, match="metadatas length must match"):
@@ -108,9 +93,7 @@ def test_add_texts_rejects_metadata_length_mismatch() -> None:
 
 
 def test_similarity_search_returns_structured_records() -> None:
-    """
-    Verify retrieval returns content and metadata records.
-    """
+    """Verify retrieval returns content and metadata records."""
     store = FAISSStore(embeddings=DummyEmbeddings())
     store.add_texts(
         texts=["customer churn", "customer retention"],
@@ -129,9 +112,7 @@ def test_similarity_search_returns_structured_records() -> None:
 
 
 def test_similarity_search_rejects_blank_query() -> None:
-    """
-    Verify blank retrieval queries are rejected.
-    """
+    """Verify blank retrieval queries are rejected."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     with pytest.raises(ValueError, match="Query cannot be empty"):
@@ -139,9 +120,7 @@ def test_similarity_search_rejects_blank_query() -> None:
 
 
 def test_similarity_search_rejects_nonpositive_k() -> None:
-    """
-    Verify retrieval count must be greater than zero.
-    """
+    """Verify retrieval count must be greater than zero."""
     store = FAISSStore(embeddings=DummyEmbeddings())
     store.add_texts(["customer churn"])
 
@@ -150,9 +129,7 @@ def test_similarity_search_rejects_nonpositive_k() -> None:
 
 
 def test_similarity_search_requires_initialized_store() -> None:
-    """
-    Verify retrieval cannot run before an index exists.
-    """
+    """Verify retrieval cannot run before an index exists."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     with pytest.raises(
@@ -163,9 +140,7 @@ def test_similarity_search_requires_initialized_store() -> None:
 
 
 def test_blank_index_name_is_rejected() -> None:
-    """
-    Verify a FAISS persistence name cannot be blank.
-    """
+    """Verify a FAISS persistence name cannot be blank."""
     with pytest.raises(ValueError, match="index_name cannot be blank"):
         FAISSStore(
             embeddings=DummyEmbeddings(),
@@ -174,9 +149,7 @@ def test_blank_index_name_is_rejected() -> None:
 
 
 def test_save_requires_initialized_store() -> None:
-    """
-    Verify an empty FAISS wrapper cannot be persisted.
-    """
+    """Verify an empty FAISS wrapper cannot be persisted."""
     store = FAISSStore(embeddings=DummyEmbeddings())
 
     with pytest.raises(

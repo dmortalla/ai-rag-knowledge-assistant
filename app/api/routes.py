@@ -1,5 +1,4 @@
-"""
-API routes for the AI RAG Knowledge Assistant.
+"""API routes for the AI RAG Knowledge Assistant.
 
 This module defines FastAPI endpoints and wires them to the RAG pipeline.
 """
@@ -21,8 +20,7 @@ router = APIRouter()
 
 
 def build_pipeline() -> RAGPipeline:
-    """
-    Build the current RAG pipeline instance for the API.
+    """Build the current RAG pipeline instance for the API.
 
     Returns:
         Application pipeline used by the API route.
@@ -46,8 +44,7 @@ def build_pipeline() -> RAGPipeline:
 
 @router.get("/health")
 def health_check() -> dict[str, str]:
-    """
-    Return a simple API health status.
+    """Return a simple API health status.
 
     Returns:
         Health status payload.
@@ -57,12 +54,11 @@ def health_check() -> dict[str, str]:
 
 @router.post("/query", response_model=QueryResponse)
 def query_rag(request: QueryRequest) -> QueryResponse:
-    """
-    Run the RAG pipeline for a user query.
+    """Run the RAG pipeline for a user query.
 
     Args:
-    request:
-        Incoming query request body.
+        request: Incoming query request body.
+
     Returns:
         Answer and supporting context returned by the pipeline.
     """

@@ -1,5 +1,4 @@
-"""
-LLM client utilities for the RAG pipeline.
+"""LLM client utilities for the RAG pipeline.
 
 This module wraps the chat model used for final answer generation.
 It supports dependency injection so tests can run without making
@@ -16,22 +15,18 @@ from app.core.config import get_settings
 
 
 class LLMClient:
-    """
-    Wrapper around an LLM backend.
+    """Wrapper around an LLM backend.
 
     Args:
-    llm_backend:
-        Prebuilt LLM backend used primarily for testing. If not provided,
-        the client will initialize an OpenAI SDK client lazily.
+        llm_backend: Prebuilt LLM backend used primarily for testing. If not provided,
+            the client will initialize an OpenAI SDK client lazily.
     """
 
     def __init__(self, llm_backend: Optional[object] = None) -> None:
-        """
-        Initialize the LLM client.
+        """Initialize the LLM client.
 
         Args:
-        llm_backend:
-            Optional injected backend for testing.
+            llm_backend: Optional injected backend for testing.
         """
         settings = get_settings()
 
@@ -41,8 +36,7 @@ class LLMClient:
         self._client: Optional[OpenAI] = None
 
     def _get_client(self) -> OpenAI:
-        """
-        Return the OpenAI client, creating it if necessary.
+        """Return the OpenAI client, creating it if necessary.
 
         Returns:
             OpenAI client instance.
@@ -53,17 +47,16 @@ class LLMClient:
         return self._client
 
     def generate(self, prompt: str) -> str:
-        """
-        Generate a response from a prompt.
+        """Generate a response from a prompt.
 
         Args:
-        prompt:
-            Final prompt string.
+            prompt: Final prompt string.
+
         Returns:
             Model-generated response text.
+
         Raises:
-        ValueError:
-            If the prompt is empty.
+            ValueError: If the prompt is empty.
         """
         if not prompt or prompt.strip() == "":
             raise ValueError("Prompt cannot be empty.")

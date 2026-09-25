@@ -1,6 +1,4 @@
-"""
-Script for loading and chunking raw knowledge base documents.
-"""
+"""Script for loading and chunking raw knowledge base documents."""
 
 from __future__ import annotations
 
@@ -17,10 +15,7 @@ from app.processing.chunking import chunk_text
 
 
 def main() -> None:
-    """
-    Load raw documents, chunk them, and print a basic ingestion summary.
-
-    """
+    """Load raw documents, chunk them, and print a basic ingestion summary."""
     documents = load_all_text_documents()
 
     all_chunks: list[str] = []

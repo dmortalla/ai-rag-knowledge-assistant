@@ -1,5 +1,4 @@
-"""
-Application configuration for the AI RAG Knowledge Assistant.
+"""Application configuration for the AI RAG Knowledge Assistant.
 
 This module centralizes all runtime settings so the rest of the codebase
 does not hardcode model names, chunking values, or backend selections.

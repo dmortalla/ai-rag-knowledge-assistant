@@ -1,5 +1,4 @@
-"""
-Centralized project path utilities.
+"""Centralized project path utilities.
 
 This module prevents hardcoded file paths from being scattered across the
 project. That makes ingestion, vector storage, and future deployment

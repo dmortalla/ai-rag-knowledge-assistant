@@ -1,5 +1,4 @@
-"""
-Unit tests for the retriever module.
+"""Unit tests for the retriever module.
 
 These tests validate query handling, default top-k behavior, and
 retrieval output without depending on a real vector database.
@@ -13,19 +12,15 @@ from app.retrieval.retriever import Retriever
 
 
 class DummyVectorStore:
-    """
-    Dummy vector store used for deterministic retriever tests.
-    """
+    """Dummy vector store used for deterministic retriever tests."""
 
     def similarity_search(self, query: str, k: int = 4):
-        """
-        Return deterministic mock retrieval results.
+        """Return deterministic mock retrieval results.
 
         Args:
-        query:
-            Input query string.
-        k:
-            Number of results to return.
+            query: Input query string.
+            k: Number of results to return.
+
         Returns:
             Mock retrieved results.
         """
@@ -33,10 +28,7 @@ class DummyVectorStore:
 
 
 def test_retrieve_uses_default_k():
-    """
-    Test that retrieval uses the retriever's default top-k value.
-
-    """
+    """Test that retrieval uses the retriever's default top-k value."""
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
     results = retriever.retrieve("apple")
@@ -46,10 +38,7 @@ def test_retrieve_uses_default_k():
 
 
 def test_retrieve_respects_explicit_k():
-    """
-    Test that retrieval respects an explicit k override.
-
-    """
+    """Test that retrieval respects an explicit k override."""
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
     results = retriever.retrieve("banana", k=2)
@@ -59,10 +48,7 @@ def test_retrieve_respects_explicit_k():
 
 
 def test_retrieve_raises_for_empty_query():
-    """
-    Test that an empty query raises ValueError.
-
-    """
+    """Test that an empty query raises ValueError."""
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
     with pytest.raises(ValueError):
@@ -70,10 +56,7 @@ def test_retrieve_raises_for_empty_query():
 
 
 def test_retrieve_raises_for_invalid_k():
-    """
-    Test that a non-positive k raises ValueError.
-
-    """
+    """Test that a non-positive k raises ValueError."""
     retriever = Retriever(vector_store=DummyVectorStore(), default_k=3)
 
     with pytest.raises(ValueError):
@@ -81,9 +64,6 @@ def test_retrieve_raises_for_invalid_k():
 
 
 def test_init_raises_for_invalid_default_k():
-    """
-    Test that an invalid default_k fails at initialization.
-
-    """
+    """Test that an invalid default_k fails at initialization."""
     with pytest.raises(AssertionError):
         Retriever(vector_store=DummyVectorStore(), default_k=0)

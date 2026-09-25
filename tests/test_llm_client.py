@@ -1,5 +1,4 @@
-"""
-Unit tests for the LLM client module.
+"""Unit tests for the LLM client module.
 
 These tests validate prompt handling and response extraction without
 making real API calls.
@@ -13,33 +12,26 @@ from app.generation.llm_client import LLMClient
 
 
 class DummyResponse:
-    """
-    Dummy response object with a content attribute.
-    """
+    """Dummy response object with a content attribute."""
 
     def __init__(self, content: str) -> None:
-        """
-        Initialize the dummy response.
+        """Initialize the dummy response.
 
         Args:
-        content:
-            Response content text.
+            content: Response content text.
         """
         self.content = content
 
 
 class DummyLLM:
-    """
-    Dummy LLM backend for deterministic tests.
-    """
+    """Dummy LLM backend for deterministic tests."""
 
     def invoke(self, prompt: str) -> DummyResponse:
-        """
-        Return a deterministic dummy response.
+        """Return a deterministic dummy response.
 
         Args:
-        prompt:
-            Input prompt.
+            prompt: Input prompt.
+
         Returns:
             Mock response object.
         """
@@ -47,10 +39,7 @@ class DummyLLM:
 
 
 def test_generate_returns_response_content():
-    """
-    Test that the LLM client returns response content.
-
-    """
+    """Test that the LLM client returns response content."""
     client = LLMClient(llm_backend=DummyLLM())
 
     result = client.generate("What is churn?")
@@ -60,10 +49,7 @@ def test_generate_returns_response_content():
 
 
 def test_generate_raises_for_empty_prompt():
-    """
-    Test that an empty prompt raises ValueError.
-
-    """
+    """Test that an empty prompt raises ValueError."""
     client = LLMClient(llm_backend=DummyLLM())
 
     with pytest.raises(ValueError):

@@ -1,6 +1,4 @@
-"""
-Unit tests for chunking functionality.
-"""
+"""Unit tests for chunking functionality."""
 
 import pytest
 

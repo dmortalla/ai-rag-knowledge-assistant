@@ -1,5 +1,4 @@
-"""
-Unit tests for the end-to-end RAG pipeline.
+"""Unit tests for the end-to-end RAG pipeline.
 
 These tests validate that retrieval and answer generation are connected
 correctly and that the pipeline returns the expected response structure.
@@ -17,23 +16,19 @@ from app.retrieval.retriever import Retriever
 
 
 class DummyVectorStore:
-    """
-    Dummy vector store used for deterministic retrieval tests.
-    """
+    """Dummy vector store used for deterministic retrieval tests."""
 
     def similarity_search(
         self,
         query: str,
         k: int = 4,
     ) -> list[dict[str, object]]:
-        """
-        Return deterministic structured retrieval results.
+        """Return deterministic structured retrieval results.
 
         Args:
-        query:
-            Input query.
-        k:
-            Number of results.
+            query: Input query.
+            k: Number of results.
+
         Returns:
             Mock retrieved context records.
         """
@@ -50,33 +45,26 @@ class DummyVectorStore:
 
 
 class DummyResponse:
-    """
-    Dummy response object with a content attribute.
-    """
+    """Dummy response object with a content attribute."""
 
     def __init__(self, content: str) -> None:
-        """
-        Initialize the dummy response.
+        """Initialize the dummy response.
 
         Args:
-        content:
-            Response text.
+            content: Response text.
         """
         self.content = content
 
 
 class DummyLLM:
-    """
-    Dummy LLM backend for deterministic answer generation.
-    """
+    """Dummy LLM backend for deterministic answer generation."""
 
     def invoke(self, prompt: str) -> DummyResponse:
-        """
-        Return a deterministic response.
+        """Return a deterministic response.
 
         Args:
-        prompt:
-            Input prompt.
+            prompt: Input prompt.
+
         Returns:
             Mock response object.
         """
@@ -86,10 +74,7 @@ class DummyLLM:
 
 
 def test_run_returns_expected_structure():
-    """
-    Test that the RAG pipeline returns query, context, sources, and answer.
-
-    """
+    """Test that the RAG pipeline returns query, context, sources, and answer."""
     retriever = Retriever(
         vector_store=DummyVectorStore(),
         default_k=2,
@@ -132,10 +117,7 @@ def test_run_returns_expected_structure():
 
 
 def test_run_raises_for_empty_query():
-    """
-    Test that an empty query raises ValueError.
-
-    """
+    """Test that an empty query raises ValueError."""
     retriever = Retriever(
         vector_store=DummyVectorStore(),
         default_k=2,

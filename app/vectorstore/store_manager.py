@@ -1,6 +1,4 @@
-"""
-Vector store factory and backend selection utilities.
-"""
+"""Vector store factory and backend selection utilities."""
 
 from __future__ import annotations
 
@@ -11,19 +9,17 @@ from app.vectorstore.faiss_store import FAISSStore
 
 
 def get_vector_store(embeddings: object | None = None) -> BaseVectorStore:
-    """
-    Create the configured vector store backend.
+    """Create the configured vector store backend.
 
     Args:
-    embeddings:
-        Embedding backend. If omitted, an OpenAI embedder is created.
+        embeddings: Embedding backend. If omitted, an OpenAI embedder is created.
+
     Returns:
         Configured vector store instance.
+
     Raises:
-    NotImplementedError:
-        If Pinecone is selected before its backend is implemented.
-    ValueError:
-        If the configured backend is unsupported.
+        NotImplementedError: If Pinecone is selected before its backend is implemented.
+        ValueError: If the configured backend is unsupported.
     """
     settings = get_settings()
 

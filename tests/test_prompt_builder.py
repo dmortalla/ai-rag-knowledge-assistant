@@ -1,5 +1,4 @@
-"""
-Unit tests for the prompt builder module.
+"""Unit tests for the prompt builder module.
 
 These tests validate grounded prompt construction and input validation
 for the RAG generation layer.
@@ -13,10 +12,7 @@ from app.generation.prompt_builder import PromptBuilder
 
 
 def test_build_creates_prompt_with_query_and_context():
-    """
-    Test that the built prompt includes the query and structured context.
-
-    """
+    """Test that the built prompt includes the query and structured context."""
     builder = PromptBuilder()
 
     prompt = builder.build(
@@ -49,10 +45,7 @@ def test_build_creates_prompt_with_query_and_context():
 
 
 def test_build_raises_for_empty_query():
-    """
-    Test that an empty query raises ValueError.
-
-    """
+    """Test that an empty query raises ValueError."""
     builder = PromptBuilder()
 
     context_chunks = [
@@ -70,10 +63,7 @@ def test_build_raises_for_empty_query():
 
 
 def test_build_raises_for_empty_context_list():
-    """
-    Test that an empty context list raises ValueError.
-
-    """
+    """Test that an empty context list raises ValueError."""
     builder = PromptBuilder()
 
     with pytest.raises(ValueError):
@@ -81,10 +71,7 @@ def test_build_raises_for_empty_context_list():
 
 
 def test_build_raises_for_blank_context_chunk():
-    """
-    Test that blank structured context content raises ValueError.
-
-    """
+    """Test that blank structured context content raises ValueError."""
     builder = PromptBuilder()
 
     context_chunks = [
@@ -112,10 +99,7 @@ def test_build_raises_for_blank_context_chunk():
 
 
 def test_custom_system_instruction_is_used():
-    """
-    Test that a custom system instruction appears in the final prompt.
-
-    """
+    """Test that a custom system instruction appears in the final prompt."""
     builder = PromptBuilder(
         system_instruction="Answer briefly using only the supplied context."
     )

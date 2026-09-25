@@ -1,6 +1,4 @@
-"""
-Script for building and saving a vector store from raw documents.
-"""
+"""Script for building and saving a vector store from raw documents."""
 
 from __future__ import annotations
 
@@ -17,10 +15,7 @@ from app.vectorstore.store_manager import get_vector_store
 
 
 def main() -> None:
-    """
-    Build and save a vector index from raw text documents.
-
-    """
+    """Build and save a vector index from raw text documents."""
     documents = load_all_text_documents()
 
     all_chunks: list[str] = []

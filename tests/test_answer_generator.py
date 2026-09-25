@@ -1,5 +1,4 @@
-"""
-Unit tests for the answer generator module.
+"""Unit tests for the answer generator module.
 
 These tests validate that prompt construction and LLM generation work
 together correctly.
@@ -13,33 +12,26 @@ from app.generation.prompt_builder import PromptBuilder
 
 
 class DummyResponse:
-    """
-    Dummy response object with a content attribute.
-    """
+    """Dummy response object with a content attribute."""
 
     def __init__(self, content: str) -> None:
-        """
-        Initialize the dummy response.
+        """Initialize the dummy response.
 
         Args:
-        content:
-            Response content text.
+            content: Response content text.
         """
         self.content = content
 
 
 class DummyLLM:
-    """
-    Dummy LLM backend for deterministic tests.
-    """
+    """Dummy LLM backend for deterministic tests."""
 
     def invoke(self, prompt: str) -> DummyResponse:
-        """
-        Return a deterministic answer containing part of the prompt.
+        """Return a deterministic answer containing part of the prompt.
 
         Args:
-        prompt:
-            Input prompt.
+            prompt: Input prompt.
+
         Returns:
             Mock response object.
         """
@@ -49,10 +41,7 @@ class DummyLLM:
 
 
 def test_generate_answer_returns_text():
-    """
-    Test that the answer generator returns final answer text.
-
-    """
+    """Test that the answer generator returns final answer text."""
     prompt_builder = PromptBuilder()
     llm_client = LLMClient(llm_backend=DummyLLM())
     generator = AnswerGenerator(

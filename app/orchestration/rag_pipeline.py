@@ -1,5 +1,4 @@
-"""
-End-to-end orchestration for the RAG pipeline.
+"""End-to-end orchestration for the RAG pipeline.
 
 This module connects retrieval and generation into a single application-
 level pipeline that accepts a query and returns a grounded answer along
@@ -15,14 +14,11 @@ from app.retrieval.retriever import Retriever
 
 
 class RAGPipeline:
-    """
-    Orchestrate retrieval-augmented generation.
+    """Orchestrate retrieval-augmented generation.
 
     Args:
-    retriever:
-        Retriever instance used to fetch relevant context chunks.
-    answer_generator:
-        Answer generator instance used to produce the final answer.
+        retriever: Retriever instance used to fetch relevant context chunks.
+        answer_generator: Answer generator instance used to produce the final answer.
     """
 
     def __init__(
@@ -30,30 +26,26 @@ class RAGPipeline:
         retriever: Retriever,
         answer_generator: AnswerGenerator,
     ) -> None:
-        """
-        Initialize the RAG pipeline.
+        """Initialize the RAG pipeline.
 
         Args:
-        retriever:
-            Retriever instance.
-        answer_generator:
-            Answer generator instance.
+            retriever: Retriever instance.
+            answer_generator: Answer generator instance.
         """
         self.retriever = retriever
         self.answer_generator = answer_generator
 
     def run(self, query: str) -> Dict[str, Any]:
-        """
-        Run the full RAG pipeline for a query.
+        """Run the full RAG pipeline for a query.
 
         Args:
-        query:
-            User query.
+            query: User query.
+
         Returns:
             Dictionary containing the query, retrieved sources, and answer.
+
         Raises:
-        ValueError:
-            If the query is empty.
+            ValueError: If the query is empty.
         """
         if not query or query.strip() == "":
             raise ValueError("Query cannot be empty.")

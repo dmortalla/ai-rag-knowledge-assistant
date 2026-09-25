@@ -1,6 +1,4 @@
-"""
-FastAPI application entrypoint for the AI RAG Knowledge Assistant.
-"""
+"""FastAPI application entrypoint for the AI RAG Knowledge Assistant."""
 
 from __future__ import annotations
 

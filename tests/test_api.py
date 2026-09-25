@@ -1,5 +1,4 @@
-"""
-Unit tests for the FastAPI application layer.
+"""Unit tests for the FastAPI application layer.
 
 These tests validate the health endpoint and the query endpoint without
 making real LLM API calls.
@@ -14,17 +13,14 @@ from app.api.main import app
 
 
 class DummyPipeline:
-    """
-    Dummy pipeline used to isolate API tests from real backend logic.
-    """
+    """Dummy pipeline used to isolate API tests from real backend logic."""
 
     def run(self, query: str) -> dict:
-        """
-        Return a deterministic mock RAG response.
+        """Return a deterministic mock RAG response.
 
         Args:
-        query:
-            User query.
+            query: User query.
+
         Returns:
             Mock pipeline result.
         """
@@ -54,10 +50,7 @@ client = TestClient(app)
 
 
 def test_health_endpoint():
-    """
-    Test that the health endpoint returns status ok.
-
-    """
+    """Test that the health endpoint returns status ok."""
     response = client.get("/health")
 
     assert response.status_code == 200
@@ -65,12 +58,10 @@ def test_health_endpoint():
 
 
 def test_query_endpoint(monkeypatch):
-    """
-    Test that the query endpoint returns a structured response.
+    """Test that the query endpoint returns a structured response.
 
     Args:
-    monkeypatch:
-        Fixture used to replace the pipeline builder.
+        monkeypatch: Fixture used to replace the pipeline builder.
     """
     monkeypatch.setattr(
         routes,

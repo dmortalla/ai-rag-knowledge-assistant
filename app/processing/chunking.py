@@ -1,5 +1,4 @@
-"""
-Text chunking utilities for RAG pipeline.
+"""Text chunking utilities for RAG pipeline.
 
 This module splits documents into smaller overlapping chunks
 to improve retrieval quality in vector search.
@@ -13,17 +12,16 @@ from app.core.config import get_settings
 
 
 def chunk_text(text: str) -> List[str]:
-    """
-    Split input text into overlapping chunks.
+    """Split input text into overlapping chunks.
 
     Args:
-    text:
-        Raw input text.
+        text: Raw input text.
+
     Returns:
         List of text chunks.
+
     Raises:
-    ValueError:
-        If input text is empty.
+        ValueError: If input text is empty.
     """
     settings = get_settings()
 

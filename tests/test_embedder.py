@@ -1,5 +1,4 @@
-"""
-Unit tests for the OpenAI embedding module.
+"""Unit tests for the OpenAI embedding module.
 
 These tests validate embedding generation behavior without making
 real API calls by using a dummy embedder backend.
@@ -13,31 +12,28 @@ from app.embeddings.openai_embedder import OpenAIEmbedder
 
 
 class DummyEmbedder:
-    """
-    Mock embedder used to simulate embedding responses.
+    """Mock embedder used to simulate embedding responses.
 
     This avoids external API calls during testing.
     """
 
     def embed_documents(self, texts):
-        """
-        Generate dummy embeddings for multiple texts.
+        """Generate dummy embeddings for multiple texts.
 
         Args:
-        texts:
-            Input text list.
+            texts: Input text list.
+
         Returns:
             Fixed-size dummy vectors.
         """
         return [[1.0] * 5 for _ in texts]
 
     def embed_query(self, query):
-        """
-        Generate a dummy embedding for a query.
+        """Generate a dummy embedding for a query.
 
         Args:
-        query:
-            Input query string.
+            query: Input query string.
+
         Returns:
             Fixed-size dummy vector.
         """
@@ -45,10 +41,7 @@ class DummyEmbedder:
 
 
 def test_embed_texts():
-    """
-    Test embedding generation for multiple texts.
-
-    """
+    """Test embedding generation for multiple texts."""
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
     texts = ["hello", "world"]
@@ -59,10 +52,7 @@ def test_embed_texts():
 
 
 def test_embed_query():
-    """
-    Test embedding generation for a single query.
-
-    """
+    """Test embedding generation for a single query."""
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
     vector = embedder.embed_query("test query")
@@ -72,10 +62,7 @@ def test_embed_query():
 
 
 def test_empty_texts():
-    """
-    Test that embedding generation raises an error for empty input.
-
-    """
+    """Test that embedding generation raises an error for empty input."""
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
     with pytest.raises(ValueError):
@@ -83,10 +70,7 @@ def test_empty_texts():
 
 
 def test_empty_query():
-    """
-    Test that embedding generation raises an error for empty query.
-
-    """
+    """Test that embedding generation raises an error for empty query."""
     embedder = OpenAIEmbedder(embedding_backend=DummyEmbedder())
 
     with pytest.raises(ValueError):

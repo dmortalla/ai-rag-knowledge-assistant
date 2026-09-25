@@ -1,5 +1,4 @@
-"""
-Prompt construction utilities for the RAG pipeline.
+"""Prompt construction utilities for the RAG pipeline.
 
 This module builds grounded prompts by combining the user's question
 with retrieved context chunks. The resulting prompt is designed to keep
@@ -12,21 +11,17 @@ from typing import Dict, List
 
 
 class PromptBuilder:
-    """
-    Build grounded prompts for retrieval-augmented generation.
+    """Build grounded prompts for retrieval-augmented generation.
 
     Args:
-    system_instruction:
-        Instruction prepended to the final prompt.
+        system_instruction: Instruction prepended to the final prompt.
     """
 
     def __init__(self, system_instruction: str | None = None) -> None:
-        """
-        Initialize the prompt builder.
+        """Initialize the prompt builder.
 
         Args:
-        system_instruction:
-            Custom instruction for the LLM.
+            system_instruction: Custom instruction for the LLM.
         """
         self.system_instruction = (
             system_instruction
@@ -44,20 +39,18 @@ class PromptBuilder:
         query: str,
         context_chunks: List[Dict[str, object]],
     ) -> str:
-        """
-        Build a final LLM prompt from a query and retrieved context.
+        """Build a final LLM prompt from a query and retrieved context.
 
         Args:
-        query:
-            User question.
-        context_chunks:
-            Retrieved chunk records.
+            query: User question.
+            context_chunks: Retrieved chunk records.
+
         Returns:
             Final prompt string.
+
         Raises:
-        ValueError:
-            If the query is empty, the context list is empty, or a context
-            chunk contains blank content.
+            ValueError: If the query is empty, the context list is empty, or a context
+                chunk contains blank content.
         """
         if not query or query.strip() == "":
             raise ValueError("Query cannot be empty.")
@@ -78,17 +71,16 @@ class PromptBuilder:
         self,
         context_chunks: List[Dict[str, object]],
     ) -> str:
-        """
-        Format retrieved context chunks into a numbered block.
+        """Format retrieved context chunks into a numbered block.
 
         Args:
-        context_chunks:
-            Retrieved chunk records.
+            context_chunks: Retrieved chunk records.
+
         Returns:
             Numbered context block.
+
         Raises:
-        ValueError:
-            If a retrieved chunk contains blank content.
+            ValueError: If a retrieved chunk contains blank content.
         """
         formatted_blocks = []
 

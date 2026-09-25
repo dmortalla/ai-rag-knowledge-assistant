@@ -1,5 +1,4 @@
-"""
-Retriever utilities for the RAG pipeline.
+"""Retriever utilities for the RAG pipeline.
 
 This module defines an application-level retriever that sits between
 the orchestration layer and the vector store. It provides a clean,
@@ -14,25 +13,19 @@ from app.core.config import get_settings
 
 
 class Retriever:
-    """
-    Application-level retriever for vector search.
+    """Application-level retriever for vector search.
 
     Args:
-    vector_store:
-        Vector store instance implementing a ``similarity_search`` method.
-    default_k:
-        Default number of results to retrieve.
+        vector_store: Vector store instance implementing a ``similarity_search`` method.
+        default_k: Default number of results to retrieve.
     """
 
     def __init__(self, vector_store: object, default_k: Optional[int] = None) -> None:
-        """
-        Initialize the retriever.
+        """Initialize the retriever.
 
         Args:
-        vector_store:
-            Vector store instance.
-        default_k:
-            Default number of retrieved results.
+            vector_store: Vector store instance.
+            default_k: Default number of retrieved results.
         """
         settings = get_settings()
 
@@ -42,19 +35,17 @@ class Retriever:
         assert self.default_k > 0, "default_k must be greater than 0."
 
     def retrieve(self, query: str, k: Optional[int] = None) -> List[Dict[str, object]]:
-        """
-        Retrieve the most relevant text chunks for a query.
+        """Retrieve the most relevant text chunks for a query.
 
         Args:
-        query:
-            Input query string.
-        k:
-            Number of top results to retrieve.
+            query: Input query string.
+            k: Number of top results to retrieve.
+
         Returns:
             Retrieved chunk records with content and metadata.
+
         Raises:
-        ValueError:
-            If the query is empty or if ``k`` is invalid.
+            ValueError: If the query is empty or if ``k`` is invalid.
         """
         if not query or query.strip() == "":
             raise ValueError("Query cannot be empty.")

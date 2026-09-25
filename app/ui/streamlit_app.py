@@ -1,5 +1,4 @@
-"""
-Streamlit user interface for the AI RAG Knowledge Assistant.
+"""Streamlit user interface for the AI RAG Knowledge Assistant.
 
 This module provides a polished chat-style frontend that sends user
 queries to the FastAPI backend and displays the resulting grounded
@@ -22,21 +21,18 @@ HEALTH_API_URL = f"{API_BASE_URL}/health"
 
 
 def call_rag_api(query: str, api_url: str = QUERY_API_URL) -> Dict[str, Any]:
-    """
-    Send a query to the FastAPI backend.
+    """Send a query to the FastAPI backend.
 
     Args:
-    query:
-        User query text.
-    api_url:
-        Backend API endpoint URL.
+        query: User query text.
+        api_url: Backend API endpoint URL.
+
     Returns:
         Parsed JSON response from the API.
+
     Raises:
-    ValueError:
-        If the query is empty.
-    requests.RequestException:
-        If the API request fails.
+        ValueError: If the query is empty.
+        requests.RequestException: If the API request fails.
     """
     if not query or query.strip() == "":
         raise ValueError("Query cannot be empty.")
@@ -51,12 +47,11 @@ def call_rag_api(query: str, api_url: str = QUERY_API_URL) -> Dict[str, Any]:
 
 
 def check_backend_health(health_url: str = HEALTH_API_URL) -> Tuple[bool, str]:
-    """
-    Check whether the FastAPI backend is reachable and healthy.
+    """Check whether the FastAPI backend is reachable and healthy.
 
     Args:
-    health_url:
-        Backend health endpoint URL.
+        health_url: Backend health endpoint URL.
+
     Returns:
         Boolean health state and a short status message.
     """
@@ -74,14 +69,12 @@ def check_backend_health(health_url: str = HEALTH_API_URL) -> Tuple[bool, str]:
 
 
 def highlight_query_terms(text: str, query: str) -> str:
-    """
-    Highlight query words inside retrieved text using Markdown bolding.
+    """Highlight query words inside retrieved text using Markdown bolding.
 
     Args:
-    text:
-        Retrieved text content.
-    query:
-        Original user query.
+        text: Retrieved text content.
+        query: Original user query.
+
     Returns:
         Markdown-formatted text with matched query terms emphasized.
     """
@@ -101,15 +94,14 @@ def highlight_query_terms(text: str, query: str) -> str:
 
 
 def compute_grounding_signal(sources: List[Dict[str, Any]]) -> int:
-    """
-    Compute a heuristic grounding signal from retrieval evidence.
+    """Compute a heuristic grounding signal from retrieval evidence.
 
     The signal summarizes the amount of retrieved context available to
     ground an answer. It is not a calibrated probability of correctness.
 
     Args:
-    sources:
-        Source records returned by the API.
+        sources: Source records returned by the API.
+
     Returns:
         Heuristic grounding signal from 0 to 100.
     """
@@ -126,10 +118,7 @@ def compute_grounding_signal(sources: List[Dict[str, Any]]) -> int:
 
 
 def initialize_session_state() -> None:
-    """
-    Initialize Streamlit session state values.
-
-    """
+    """Initialize Streamlit session state values."""
     if "last_query" not in st.session_state:
         st.session_state.last_query = ""
 
@@ -138,10 +127,7 @@ def initialize_session_state() -> None:
 
 
 def render_sidebar() -> None:
-    """
-    Render the application sidebar.
-
-    """
+    """Render the application sidebar."""
     backend_ok, backend_message = check_backend_health()
 
     with st.sidebar:
@@ -177,10 +163,7 @@ def render_sidebar() -> None:
 
 
 def render_hero() -> None:
-    """
-    Render the page title and intro block.
-
-    """
+    """Render the page title and intro block."""
     st.title("AI RAG Knowledge Assistant")
     st.caption(
         "A production-style Retrieval-Augmented Generation application "
@@ -189,10 +172,7 @@ def render_hero() -> None:
 
 
 def render_example_queries() -> None:
-    """
-    Render quick example query buttons.
-
-    """
+    """Render quick example query buttons."""
     st.markdown("### Try an example")
 
     col1, col2, col3 = st.columns(3)
@@ -208,8 +188,7 @@ def render_example_queries() -> None:
 
 
 def render_input_section() -> str:
-    """
-    Render the query input section.
+    """Render the query input section.
 
     Returns:
         Current query text from the text area.
@@ -222,14 +201,11 @@ def render_input_section() -> str:
 
 
 def render_conversation(active_query: str, answer: str) -> None:
-    """
-    Render the conversation section.
+    """Render the conversation section.
 
     Args:
-    active_query:
-        User query.
-    answer:
-        Final grounded answer.
+        active_query: User query.
+        answer: Final grounded answer.
     """
     st.divider()
     st.markdown("## Conversation")
@@ -251,14 +227,11 @@ def render_conversation(active_query: str, answer: str) -> None:
 
 
 def render_retrieval_summary(active_query: str, sources: List[Dict[str, Any]]) -> None:
-    """
-    Render the retrieval and grounding analysis section.
+    """Render the retrieval and grounding analysis section.
 
     Args:
-    active_query:
-        User query.
-    sources:
-        Source records returned by the API.
+        active_query: User query.
+        sources: Source records returned by the API.
     """
     st.divider()
     st.markdown("## Query Context")
@@ -309,16 +282,12 @@ def render_retrieval_summary(active_query: str, sources: List[Dict[str, Any]]) -
 
 
 def render_source_card(source_record: Dict[str, Any], index: int, query: str) -> None:
-    """
-    Render a single retrieved source card.
+    """Render a single retrieved source card.
 
     Args:
-    source_record:
-        Source record returned by the API.
-    index:
-        Display index for the source.
-    query:
-        Original user query used for highlight matching.
+        source_record: Source record returned by the API.
+        index: Display index for the source.
+        query: Original user query used for highlight matching.
     """
     source_name = str(source_record.get("source", "unknown_source"))
     chunk_id = source_record.get("chunk_id", "unknown_chunk")
@@ -344,14 +313,11 @@ def render_source_card(source_record: Dict[str, Any], index: int, query: str) ->
 
 
 def render_sources_section(sources: List[Dict[str, Any]], active_query: str) -> None:
-    """
-    Render the sources section.
+    """Render the sources section.
 
     Args:
-    sources:
-        Source records returned by the API.
-    active_query:
-        User query.
+        sources: Source records returned by the API.
+        active_query: User query.
     """
     st.divider()
     st.markdown("## Retrieved Sources")
@@ -366,12 +332,10 @@ def render_sources_section(sources: List[Dict[str, Any]], active_query: str) -> 
 
 
 def handle_submission(query: str) -> None:
-    """
-    Handle a query submission and store the result in session state.
+    """Handle a query submission and store the result in session state.
 
     Args:
-    query:
-        User query.
+        query: User query.
     """
     if not query.strip():
         st.warning("Please enter a question before submitting.")
@@ -391,10 +355,7 @@ def handle_submission(query: str) -> None:
 
 
 def render_app() -> None:
-    """
-    Render the Streamlit application.
-
-    """
+    """Render the Streamlit application."""
     st.set_page_config(
         page_title="AI RAG Knowledge Assistant",
         page_icon="🤖",

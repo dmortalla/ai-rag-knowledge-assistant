@@ -40,7 +40,7 @@ OpenAI Chat Model
 Grounded Answer + Sources
 ```
 
-Users interact with the system through a Streamlit frontend backed by a FastAPI API./
+Users interact with the system through a Streamlit frontend backed by a FastAPI API.
 
 ## 🖥️ Application Demo
 
