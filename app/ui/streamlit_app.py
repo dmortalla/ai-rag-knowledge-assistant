@@ -3,7 +3,7 @@ Streamlit user interface for the AI RAG Knowledge Assistant.
 
 This module provides a polished chat-style frontend that sends user
 queries to the FastAPI backend and displays the resulting grounded
-answer, retrieval summary, confidence signal, and source-attributed
+answer, retrieval summary, grounding signal, and source-attributed
 context.
 """
 
@@ -114,9 +114,12 @@ def highlight_query_terms(text: str, query: str) -> str:
     return highlighted_text
 
 
-def compute_confidence_score(sources: List[Dict[str, Any]]) -> int:
+def compute_grounding_signal(sources: List[Dict[str, Any]]) -> int:
     """
-    Compute a simple confidence score based on retrieval signals.
+    Compute a heuristic grounding signal from retrieval evidence.
+
+    The signal summarizes the amount of retrieved context available to
+    ground an answer. It is not a calibrated probability of correctness.
 
     Parameters
     ----------
@@ -126,7 +129,7 @@ def compute_confidence_score(sources: List[Dict[str, Any]]) -> int:
     Returns
     -------
     int
-        Confidence score from 0 to 100.
+        Heuristic grounding signal from 0 to 100.
     """
     if not sources:
         return 20
@@ -309,25 +312,41 @@ def render_retrieval_summary(active_query: str, sources: List[Dict[str, Any]]) -
         f"Top {len(sources)} relevant chunk(s) retrieved from the knowledge base."
     )
 
-    confidence = compute_confidence_score(sources)
+    grounding_signal = compute_grounding_signal(sources)
 
-    st.markdown("### Answer Confidence")
-    st.progress(confidence)
+    st.markdown("### Grounding Signal")
+    st.progress(grounding_signal)
 
-    if confidence >= 85:
-        st.success(f"Confidence: {confidence}% — Highly grounded answer")
-    elif confidence >= 70:
-        st.info(f"Confidence: {confidence}% — Moderately grounded answer")
+    if grounding_signal >= 85:
+        st.success(
+            f"Grounding signal: {grounding_signal}% — Strong retrieval support"
+    )
+    elif grounding_signal >= 70:
+        st.info(
+            f"Grounding signal: {grounding_signal}% — Moderate retrieval support"
+    )
     else:
-        st.warning(f"Confidence: {confidence}% — Low grounding, verify sources")
+        st.warning(
+            f"Grounding signal: {grounding_signal}% — Limited retrieval support"
+    )
+
+    st.caption(
+        "Heuristic signal based on retrieved context. "
+        "This is not a calibrated probability that the answer is correct."
+    )
 
     if len(sources) == 0:
-        st.warning("No relevant context found. Answer may be less reliable.")
+        st.warning(
+            "No relevant context was retrieved from the knowledge base."
+        )
     elif len(sources) == 1:
-        st.info("High grounding clarity: the answer was based on one focused chunk.")
+        st.info(
+            "Focused retrieval: one source chunk was used to ground the answer."
+        )
     else:
         st.info(
-            "Multi-source grounding: the answer was generated from multiple retrieved chunks."
+            "Multi-source retrieval: multiple source chunks were used to "
+            "ground the answer."
         )
 
 
