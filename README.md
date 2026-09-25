@@ -1,13 +1,10 @@
+# 🤖 AI RAG Knowledge Assistant
 
-# AI RAG Knowledge Assistant
-
-A full-stack Retrieval-Augmented Generation (RAG) application that answers questions using a custom knowledge base angit diff --check
-
-git status --shortd provides source attribution for retrieved context.
+A full-stack Retrieval-Augmented Generation (RAG) application that answers questions using a custom knowledge base and provides source attribution for retrieved context.
 
 The project combines document ingestion, text chunking, OpenAI embeddings, FAISS vector search, grounded prompt construction, OpenAI generation, a FastAPI backend, and a Streamlit interface in a modular Python architecture.
 
-## Overview
+## 🚀 Overview
 
 Large language models can generate answers from their pretrained knowledge even when the information required by an application is missing or domain-specific.
 
@@ -45,21 +42,21 @@ Grounded Answer + Sources
 
 Users interact with the system through a Streamlit frontend backed by a FastAPI API.
 
-## Key Features
+## ✨ Key Features
 
-### Retrieval-Augmented Generation
+### 🔎 Retrieval-Augmented Generation
 
 The application retrieves relevant chunks from a custom knowledge base before generating an answer.
 
 The retrieved context is passed to the language model so responses can be grounded in application-specific information rather than relying solely on the model's pretrained knowledge.
 
-### Semantic Retrieval
+### 🔍 Semantic Retrieval
 
 Documents are converted into embeddings using OpenAI's embedding API and indexed in FAISS.
 
 At query time, the application performs vector similarity search to retrieve the most relevant chunks.
 
-### Source Attribution
+### 📚 Source Attribution
 
 The API and user interface expose the sources used during retrieval.
 
@@ -71,19 +68,19 @@ Retrieved records include metadata such as:
 
 This makes it possible to inspect the context supplied to the language model.
 
-### Grounding Signal
+### 📊 Grounding Signal
 
 The Streamlit interface displays a retrieval-based grounding signal.
 
 This signal is a simple heuristic based on the amount of retrieved source context. It is intended to communicate retrieval support and is **not a calibrated probability that an answer is correct**.
 
-### Insufficient-Context Behavior
+### 🛡️ Insufficient-Context Behavior
 
 The prompt instructs the model to rely on the supplied knowledge-base context.
 
 When the retrieved information does not support an answer, the application can respond that the information is not available in the knowledge base rather than filling the gap with unsupported information.
 
-### Backend-Agnostic Vector Store Interface
+### 🔄 Backend-Agnostic Vector Store Interface
 
 Vector storage is isolated behind a `BaseVectorStore` abstraction.
 
@@ -91,7 +88,7 @@ The current implementation uses FAISS, while the rest of the RAG pipeline intera
 
 This architecture makes additional vector-store providers easier to introduce without coupling retrieval and orchestration logic directly to FAISS.
 
-### REST API
+### 🔌 REST API
 
 FastAPI provides application endpoints including:
 
@@ -107,7 +104,7 @@ The query endpoint returns:
 - source metadata
 - the generated answer
 
-### Streamlit Interface
+### 💻 Streamlit Interface
 
 The frontend provides:
 
@@ -120,7 +117,7 @@ The frontend provides:
 - conversation/session behavior
 - backend status indicators
 
-## Architecture
+## 🏗️ Architecture
 
 The runtime request flow is:
 
@@ -191,7 +188,7 @@ FastAPI
 Streamlit UI
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
 ai-rag-knowledge-assistant/
@@ -268,7 +265,7 @@ ai-rag-knowledge-assistant/
 `-- README.md
 ```
 
-## Technology Stack
+## 🧰 Technology Stack
 
 | Component       | Technology                 |
 | --------------- | -------------------------- |
@@ -284,7 +281,7 @@ ai-rag-knowledge-assistant/
 
 Model names are configurable through environment variables and therefore can be changed without modifying application code.
 
-## Getting Started
+## ⚙️ Getting Started
 
 The following instructions use Conda and Windows PowerShell.
 
@@ -332,7 +329,7 @@ CHUNK_OVERLAP=150
 
 The `.env` file is excluded from Git and should not be committed.
 
-## Building the Knowledge Base
+## 🗄️ Building the Knowledge Base
 
 The repository contains a small example knowledge-base document:
 
@@ -354,11 +351,11 @@ data/vector_store/faiss_index/
 
 Generated vector-store artifacts are ignored by Git and can be rebuilt from the source documents.
 
-## Running the Application
+## ▶️ Running the Application
 
 The backend and frontend run as separate local processes.
 
-### Start FastAPI
+### 🚀 Start FastAPI
 
 From the project root:
 
@@ -372,7 +369,7 @@ The API is available locally at:
 http://127.0.0.1:8000
 ```
 
-### Start Streamlit
+### 🖥️ Start Streamlit
 
 Open another terminal, activate the same environment, and run:
 
@@ -382,7 +379,7 @@ python -m streamlit run app\ui\streamlit_app.py
 
 Streamlit will display the local application URL in the terminal.
 
-## API Example
+## 🔗 API Example
 
 With the FastAPI server running, a query can be submitted from PowerShell:
 
@@ -408,7 +405,7 @@ sources
 answer
 ```
 
-## Example Queries
+## 💬 Example Queries
 
 The included sample knowledge base supports questions related to customer retention and churn.
 
@@ -426,7 +423,7 @@ What is customer retention?
 
 A question requiring information that is not sufficiently represented in the knowledge base may produce an insufficient-context response rather than an unsupported answer.
 
-## Testing
+## 🧪 Testing
 
 Run the automated test suite with:
 
@@ -451,7 +448,7 @@ The tests cover major components including:
 - API behavior
 - FAISS vector-store behavior and guardrails
 
-### Compile Validation
+### 🐍 Compile Validation
 
 Python source compilation can also be checked with:
 
@@ -459,7 +456,7 @@ Python source compilation can also be checked with:
 python -m compileall app tests scripts
 ```
 
-### Git Whitespace Validation
+### 🔎 Git Whitespace Validation
 
 Before committing changes:
 
@@ -467,7 +464,7 @@ Before committing changes:
 git diff --check
 ```
 
-## Verified End-to-End Behavior
+## ✅ Verified End-to-End Behavior
 
 The application has been manually exercised through the complete local workflow:
 
@@ -496,35 +493,35 @@ The verified workflow includes both:
 1. a query supported by the knowledge base, producing a grounded answer with source metadata; and
 2. a query for which the available context was insufficient, producing an explicit knowledge-base limitation rather than an unsupported answer.
 
-## Design Decisions
+## 🧠 Design Decisions
 
-### Modular RAG Components
+### 🧩 Modular RAG Components
 
 Ingestion, chunking, embeddings, retrieval, prompting, generation, orchestration, API handling, and UI rendering are separated into dedicated modules.
 
 This keeps responsibilities explicit and makes individual components easier to test or replace.
 
-### Dependency Injection
+### 💉 Dependency Injection
 
 Several components accept injected dependencies, allowing deterministic test doubles to replace network-backed services during unit tests.
 
-### Vector-Store Abstraction
+### 🔄 Vector-Store Abstraction
 
 The application does not require retrieval code to construct FAISS directly.
 
 Instead, vector-store operations are defined through a shared abstraction and selected through a factory.
 
-### Configuration Through Environment Variables
+### ⚙️ Configuration Through Environment Variables
 
 Model names, retrieval depth, chunk size, chunk overlap, and vector-store selection are centralized in application configuration rather than scattered throughout the codebase.
 
-### Generated Artifacts Stay Out of Git
+### 🚫 Generated Artifacts Stay Out of Git
 
 FAISS index files and local environment secrets are excluded from version control.
 
 The vector index can be reproduced from the raw source documents.
 
-## Current Limitations
+## ⚠️ Current Limitations
 
 The current version intentionally keeps the knowledge base and deployment architecture small.
 
@@ -539,7 +536,7 @@ Current limitations include:
 - Responses are not currently streamed token-by-token.
 - The application is currently verified as a local deployment.
 
-## Potential Extensions
+## 🚀 Potential Extensions
 
 Possible future improvements include:
 
@@ -558,7 +555,7 @@ Possible future improvements include:
 
 The existing vector-store abstraction provides a foundation for adding another vector backend without coupling the rest of the RAG pipeline directly to a specific provider.
 
-## What This Project Demonstrates
+## 🎯 What This Project Demonstrates
 
 This project demonstrates practical implementation of:
 
@@ -577,7 +574,7 @@ This project demonstrates practical implementation of:
 - defensive validation
 - end-to-end AI application integration
 
-## Author
+## 👤 Author
 
 **Darrell Mortalla**
 
