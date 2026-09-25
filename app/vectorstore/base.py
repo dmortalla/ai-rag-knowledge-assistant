@@ -53,7 +53,11 @@ class BaseVectorStore(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def similarity_search(self, query: str, k: int = 4) -> List[Dict[str, object]]:
+    def similarity_search(
+        self,
+        query: str,
+        k: int = 4,
+    ) -> List[Dict[str, object]]:
         """
         Search for the most relevant chunks.
 
@@ -72,31 +76,21 @@ class BaseVectorStore(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def save(self, folder_name: str = "faiss_index") -> Path:
+    def save(self) -> Path:
         """
-        Save the vector store.
-
-        Parameters
-        ----------
-        folder_name : str, default="faiss_index"
-            Save target name.
+        Save the vector store using backend-specific persistence.
 
         Returns
         -------
         Path
-            Save path.
+            Persistence location used by the backend.
         """
         raise NotImplementedError
 
     @abstractmethod
-    def load(self, folder_name: str = "faiss_index") -> None:
+    def load(self) -> None:
         """
-        Load the vector store.
-
-        Parameters
-        ----------
-        folder_name : str, default="faiss_index"
-            Load target name.
+        Load the vector store using backend-specific persistence.
 
         Returns
         -------

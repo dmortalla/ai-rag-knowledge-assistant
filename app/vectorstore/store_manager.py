@@ -17,8 +17,7 @@ def get_vector_store(embeddings: object | None = None) -> BaseVectorStore:
     Parameters
     ----------
     embeddings : object, optional
-        Embedding backend. If omitted, a default OpenAI embedder backend
-        is created.
+        Embedding backend. If omitted, an OpenAI embedder is created.
 
     Returns
     -------
@@ -28,13 +27,14 @@ def get_vector_store(embeddings: object | None = None) -> BaseVectorStore:
     Raises
     ------
     NotImplementedError
-        If the configured backend is not implemented yet.
+        If Pinecone is selected before its backend is implemented.
+    ValueError
+        If the configured backend is unsupported.
     """
     settings = get_settings()
 
     if embeddings is None:
-        embedder = OpenAIEmbedder()
-        embeddings = embedder._get_backend()
+        embeddings = OpenAIEmbedder()
 
     if settings.vector_db == "faiss":
         return FAISSStore(embeddings=embeddings)

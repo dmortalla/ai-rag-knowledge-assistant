@@ -24,9 +24,15 @@ class FAISSStore(BaseVectorStore):
     ----------
     embeddings : object
         Embedding provider implementing compatible embedding methods.
+    index_name : str, default="faiss_index"
+        Directory name used to persist the FAISS index.
     """
 
-    def __init__(self, embeddings: object) -> None:
+    def __init__(
+        self,
+        embeddings: object,
+        index_name: str = "faiss_index",
+    ) -> None:
         """
         Initialize the FAISS store wrapper.
 
@@ -34,8 +40,19 @@ class FAISSStore(BaseVectorStore):
         ----------
         embeddings : object
             Embedding provider used by the FAISS index.
+        index_name : str, default="faiss_index"
+            Directory name used to persist the FAISS index.
+
+        Raises
+        ------
+        ValueError
+            If the index name is blank.
         """
+        if not index_name or not index_name.strip():
+            raise ValueError("index_name cannot be blank.")
+
         self.embeddings = embeddings
+        self.index_name = index_name
         self._store: Optional[FAISS] = None
 
     @property
@@ -86,7 +103,11 @@ class FAISSStore(BaseVectorStore):
             metadatas=metadatas,
         )
 
-    def similarity_search(self, query: str, k: int = 4) -> List[Dict[str, object]]:
+    def similarity_search(
+        self,
+        query: str,
+        k: int = 4,
+    ) -> List[Dict[str, object]]:
         """
         Perform similarity search over the FAISS index.
 
@@ -105,10 +126,13 @@ class FAISSStore(BaseVectorStore):
         Raises
         ------
         ValueError
-            If the query is empty or the store is not initialized.
+            If the query is empty, k is invalid, or the store is not initialized.
         """
-        if not query or query.strip() == "":
+        if not query or not query.strip():
             raise ValueError("Query cannot be empty.")
+
+        if k <= 0:
+            raise ValueError("k must be greater than 0.")
 
         if self._store is None:
             raise ValueError("FAISS store has not been initialized.")
@@ -123,14 +147,9 @@ class FAISSStore(BaseVectorStore):
             for doc in results
         ]
 
-    def save(self, folder_name: str = "faiss_index") -> Path:
+    def save(self) -> Path:
         """
         Save the FAISS store locally.
-
-        Parameters
-        ----------
-        folder_name : str, default="faiss_index"
-            Subfolder name inside the vector store directory.
 
         Returns
         -------
@@ -145,20 +164,15 @@ class FAISSStore(BaseVectorStore):
         if self._store is None:
             raise ValueError("FAISS store has not been initialized.")
 
-        save_path = VECTOR_STORE_DIR / folder_name
+        save_path = VECTOR_STORE_DIR / self.index_name
         save_path.mkdir(parents=True, exist_ok=True)
         self._store.save_local(str(save_path))
 
         return save_path
 
-    def load(self, folder_name: str = "faiss_index") -> None:
+    def load(self) -> None:
         """
         Load a FAISS store from local disk.
-
-        Parameters
-        ----------
-        folder_name : str, default="faiss_index"
-            Subfolder name inside the vector store directory.
 
         Returns
         -------
@@ -169,7 +183,7 @@ class FAISSStore(BaseVectorStore):
         FileNotFoundError
             If the requested save directory does not exist.
         """
-        load_path = VECTOR_STORE_DIR / folder_name
+        load_path = VECTOR_STORE_DIR / self.index_name
 
         if not load_path.exists():
             raise FileNotFoundError(

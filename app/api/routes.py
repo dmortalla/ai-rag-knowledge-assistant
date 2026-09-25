@@ -30,7 +30,7 @@ def build_pipeline() -> RAGPipeline:
         Application pipeline used by the API route.
     """
     vector_store = get_vector_store()
-    vector_store.load(folder_name="faiss_index")
+    vector_store.load()
 
     retriever = Retriever(vector_store=vector_store)
     prompt_builder = PromptBuilder()

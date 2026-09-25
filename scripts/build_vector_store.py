@@ -48,7 +48,7 @@ def main() -> None:
 
     vector_store = get_vector_store()
     vector_store.add_texts(texts=all_chunks, metadatas=all_metadatas)
-    save_path = vector_store.save(folder_name="faiss_index")
+    save_path = vector_store.save()
 
     print("Vector store build complete.")
     print(f"Documents loaded: {len(documents)}")
