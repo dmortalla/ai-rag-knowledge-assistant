@@ -1,3 +1,9 @@
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-blue)
+![FAISS](https://img.shields.io/badge/FAISS-Vector%20Search-purple)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-red)
+![Tests](https://img.shields.io/badge/tests-pytest-success)
 # 🤖 AI RAG Knowledge Assistant
 
 A full-stack Retrieval-Augmented Generation (RAG) application that answers questions using a custom knowledge base and provides source attribution for retrieved context.
